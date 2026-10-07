@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===================================================================
+       TITLE, SEARCH + SHARING  (EDIT ME)
+       og:image must be a full https:// URL for link previews to work.
+       =================================================================== -->
+  <title>Erik Helmers — Embedded &amp; Vehicle Software</title>
+  <meta name="description" content="Erik Helmers is a Computer Science student at Gonzaga University building toward embedded and vehicle software. Projects, car photography, and resume.">
+  <meta name="author" content="Erik Helmers">
+  <link rel="canonical" href="https://controllerarmy.github.io/">
+  <meta name="theme-color" content="#0b0b0a">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Erik Helmers">
+  <meta property="og:title" content="Erik Helmers — Embedded &amp; Vehicle Software">
+  <meta property="og:description" content="Computer Science at Gonzaga University. Building toward embedded and vehicle software. Projects, car photography, and resume.">
+  <meta property="og:url" content="https://controllerarmy.github.io/">
+  <meta property="og:image" content="https://controllerarmy.github.io/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Erik Helmers — Software for things that move.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <!-- Fonts: the only external request. Offline, system fonts take over. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Inter:wght@400;500&display=swap">
+
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ===================================================================
+       NAVIGATION
+       =================================================================== -->
+  <header class="site-nav is-top" data-nav>
+    <nav class="nav-inner container" aria-label="Primary">
+      <a class="nav-brand" href="#top">Helmers</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
+        <span class="nav-toggle-label">Menu</span>
+      </button>
+      <ul class="nav-links" id="nav-menu">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#photography">Photography</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- =================================================================
+         HERO  (EDIT: headline + one line)
+         Background photo: assets/images/hero.jpg, 2400 × 1350
+         ================================================================= -->
+    <section class="hero theme-dark" id="top" aria-labelledby="hero-title">
+      <div class="hero-media media" data-label="assets/images/hero.jpg&#10;2400 × 1350 (landscape)">
+        <img src="assets/images/hero.jpg" alt="" width="2400" height="1350" fetchpriority="high" decoding="async">
+      </div>
+      <div class="hero-content container">
+        <p class="eyebrow">Erik Helmers</p>
+        <h1 class="hero-title" id="hero-title">Software for things that move.</h1>
+        <p class="hero-sub">Computer Science at Gonzaga University, Class of 2030. Building toward embedded and vehicle software.</p>
+      </div>
+      <a class="scroll-cue" href="#about"><span class="visually-hidden">Scroll to About</span></a>
+    </section>
+
+    <!-- =================================================================
+         ABOUT  (EDIT: statement, paragraph, quick facts)
+         ================================================================= -->
+    <section class="section theme-light" id="about" aria-labelledby="about-title">
+      <div class="container about-grid">
+        <header class="about-head" data-reveal>
+          <p class="eyebrow">About</p>
+          <h2 class="display" id="about-title">Where code meets the road.</h2>
+        </header>
+
+        <div class="about-copy" data-reveal>
+          <!-- Phrases in <strong> show in full-strength color; the rest is softer. -->
+          <p>
+            I'm a <strong>Computer Science student at Gonzaga University</strong>, Class of 2030, and I'm happiest
+            where software meets hardware. On <strong>Gonzaga Baja SAE</strong> I'm building a telemetry system for
+            our competition vehicle, and my first-year design project, PATHFINDER, was firmware for a handheld
+            sensor tool that had to run lean on a constrained platform. Before college I led programming on two
+            shipped Unity games at DigiPen Academy. I'm working toward <strong>embedded and vehicle software</strong>,
+            ideally at an EV company like Rivian, because I want the code I write to help make transportation
+            cleaner. Away from the keyboard I play for <strong>Gonzaga Men's Lacrosse</strong>, photograph cars,
+            and chase lap times in sim racing.
+          </p>
+        </div>
+
+        <dl class="facts" data-reveal>
+          <div><dt>Studying</dt><dd>Computer Science, Gonzaga University '30</dd></div>
+          <div><dt>Building</dt><dd>Vehicle telemetry for Gonzaga Baja SAE</dd></div>
+          <div><dt>Playing</dt><dd>Gonzaga Men's Lacrosse</dd></div>
+          <div><dt>Speaking</dt><dd>English and Spanish</dd></div>
+          <div><dt>Off hours</dt><dd>Cars, car photography, sim racing</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         PROJECTS
+         Cards + detail views are generated from PROJECTS in js/main.js.
+         ================================================================= -->
+    <section class="section theme-dark" id="projects" aria-labelledby="projects-title">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="eyebrow">Projects</p>
+          <h2 class="display" id="projects-title">Selected work.</h2>
+        </header>
+        <ul class="project-grid" data-projects></ul>
+        <noscript><p class="noscript">Turn on JavaScript to see my projects.</p></noscript>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         PHOTOGRAPHY
+         Photos are generated from GALLERY in js/main.js.
+         ================================================================= -->
+    <section class="section theme-dark" id="photography" aria-labelledby="photography-title">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <p class="eyebrow">Photography</p>
+          <h2 class="display" id="photography-title">Cars, mostly.</h2>
+          <p class="lead">When I'm not writing code, I'm usually behind a camera. Select any photo to see it full size.</p>
+        </header>
+      </div>
+      <ul class="gallery" data-gallery></ul>
+      <noscript><p class="container noscript">Turn on JavaScript to see my photos.</p></noscript>
+    </section>
+
+    <!-- =================================================================
+         EXPERIENCE  (EDIT: mirrors the resume)
+         To update the download, replace assets/resume/Erik_Helmers_Resume.pdf
+         with a new file of the same name.
+         ================================================================= -->
+    <section class="section theme-light" id="experience" aria-labelledby="experience-title">
+      <div class="container">
+        <header class="section-head section-head--split" data-reveal>
+          <div>
+            <p class="eyebrow">Experience</p>
+            <h2 class="display" id="experience-title">The short version.</h2>
+          </div>
+          <a class="btn btn--solid btn--lg" href="assets/resume/Erik_Helmers_Resume.pdf" download="Erik_Helmers_Resume.pdf">
+            Download resume <span class="btn-note">PDF</span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+          </a>
+        </header>
+
+        <div class="timeline">
+
+          <!-- Education -->
+          <section class="tl-group" aria-labelledby="tl-education" data-reveal>
+            <h3 class="tl-heading" id="tl-education">Education</h3>
+            <ol class="tl-list">
+              <li class="tl-item">
+                <p class="tl-date">Sep 2026 – May 2030</p>
+                <div>
+                  <h4 class="tl-title">Gonzaga University</h4>
+                  <p class="tl-sub">B.S. Computer Science · Spokane, WA</p>
+                </div>
+              </li>
+            </ol>
+          </section>
+
+          <!-- Engineering -->
+          <section class="tl-group" aria-labelledby="tl-engineering" data-reveal>
+            <h3 class="tl-heading" id="tl-engineering">Engineering</h3>
+            <ol class="tl-list">
+              <li class="tl-item">
+                <p class="tl-date">Sep 2026 – Oct 2026</p>
+                <div>
+                  <h4 class="tl-title">PATHFINDER</h4>
+                  <p class="tl-sub">Handheld field multi-tool firmware · Gonzaga University First Year Design Challenge</p>
+                  <a class="tl-link" href="#project/pathfinder">Project details <span aria-hidden="true">→</span></a>
+                </div>
+              </li>
+              <li class="tl-item">
+                <p class="tl-date">Mar 2026 – May 2026</p>
+                <div>
+                  <h4 class="tl-title">Grog N' Gold</h4>
+                  <p class="tl-sub">Lead Programmer · DigiPen Academy, Redmond, WA</p>
+                  <a class="tl-link" href="#project/grog-n-gold">Project details <span aria-hidden="true">→</span></a>
+                </div>
+              </li>
+              <li class="tl-item">
+                <p class="tl-date">Mar 2025 – May 2025</p>
+                <div>
+                  <h4 class="tl-title">Scally &amp; Wag: One Last Adventure</h4>
+                  <p class="tl-sub">Lead Programmer &amp; Game Director · DigiPen Academy, Redmond, WA</p>
+                  <a class="tl-link" href="#project/scally-and-wag">Project details <span aria-hidden="true">→</span></a>
+                </div>
+              </li>
+            </ol>
+          </section>
+
+          <!-- Leadership & service -->
+          <section class="tl-group" aria-labelledby="tl-leadership" data-reveal>
+            <h3 class="tl-heading" id="tl-leadership">Leadership &amp; service</h3>
+            <ol class="tl-list">
+              <li class="tl-item">
+                <p class="tl-date">Sep 2026 – Present</p>
+                <div>
+                  <h4 class="tl-title">GU Baja SAE "Holy Rollers"</h4>
+                  <p class="tl-sub">Gonzaga University · Spokane, WA</p>
+                  <ul class="tl-points">
+                    <li>Initiating and architecting a telemetry system for the competition vehicle, designing sensor integration and a data acquisition framework to capture real-time performance metrics.</li>
+                  </ul>
+                </div>
+              </li>
+              <li class="tl-item">
+                <p class="tl-date">Sep 2024 – May 2026</p>
+                <div>
+                  <h4 class="tl-title">Varsity Team Captain</h4>
+                  <p class="tl-sub">Newport High School · Bellevue, WA</p>
+                  <ul class="tl-points">
+                    <li>Led competitive Lacrosse and Water Polo student-athletes through strategic game planning, practice organization, and team morale initiatives, fostering accountability and growth.</li>
+                    <li>Coordinated directly with coaching staff to execute training regimens and manage in-game strategy adjustments.</li>
+                  </ul>
+                </div>
+              </li>
+            </ol>
+          </section>
+
+          <!-- Skills -->
+          <section class="tl-group" aria-labelledby="tl-skills" data-reveal>
+            <h3 class="tl-heading" id="tl-skills">Skills</h3>
+            <ul class="tl-list">
+              <li class="tl-item">
+                <p class="tl-date">Languages</p>
+                <ul class="tags"><li>C</li><li>C++</li><li>C#</li><li>Python</li><li>HTML</li></ul>
+              </li>
+              <li class="tl-item">
+                <p class="tl-date">Tools</p>
+                <ul class="tags"><li>Unity</li><li>Unreal Engine</li><li>Arduino</li><li>Git</li><li>GitHub</li><li>JetBrains IDEs</li><li>Adobe Premiere Pro (Certiport certified)</li></ul>
+              </li>
+              <li class="tl-item">
+                <p class="tl-date">Platforms</p>
+                <ul class="tags"><li>Windows</li><li>Debian 13</li><li>macOS</li><li>Android</li><li>WebGL</li></ul>
+              </li>
+              <li class="tl-item">
+                <p class="tl-date">Foundations</p>
+                <ul class="tags"><li>Algorithms</li><li>Data structures</li></ul>
+              </li>
+              <li class="tl-item">
+                <p class="tl-date">Spoken</p>
+                <ul class="tags"><li>English (fluent)</li><li>Spanish (fluent)</li></ul>
+              </li>
+            </ul>
+          </section>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         CONTACT  (EDIT: links)
+         ================================================================= -->
+    <section class="section section--contact theme-dark" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <header data-reveal>
+          <p class="eyebrow">Contact</p>
+          <h2 class="display" id="contact-title">Let's talk.</h2>
+          <p class="lead">Embedded systems, EVs, sim racing, or a good car photo. I'd like to hear from you.</p>
+        </header>
+
+        <ul class="contact-links" data-reveal>
+          <li>
+            <a href="mailto:erik.t.helmers@gmail.com">
+              <span class="cl-label">Email</span>
+              <span class="cl-value">erik.t.helmers@gmail.com</span>
+              <svg class="cl-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/ControllerArmy" target="_blank" rel="noopener">
+              <span class="cl-label">GitHub</span>
+              <span class="cl-value">ControllerArmy<span class="visually-hidden"> (opens in a new tab)</span></span>
+              <svg class="cl-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/erikhelmers" target="_blank" rel="noopener">
+              <span class="cl-label">LinkedIn</span>
+              <span class="cl-value">in/ErikHelmers<span class="visually-hidden"> (opens in a new tab)</span></span>
+              <svg class="cl-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer theme-dark">
+    <div class="container footer-inner">
+      <p>© <span data-year>2026</span> Erik Helmers</p>
+      <a href="#top">Back to top <span aria-hidden="true">↑</span></a>
+    </div>
+  </footer>
+
+  <!-- ===================================================================
+       PROJECT DETAIL VIEW (filled in by js/main.js)
+       =================================================================== -->
+  <dialog class="project-dialog theme-dark" id="project-dialog" aria-labelledby="pd-title">
+    <div class="pd-bar">
+      <button class="icon-btn" type="button" data-close aria-label="Close project">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <article class="pd-body container" data-project-content></article>
+  </dialog>
+
+  <!-- ===================================================================
+       PHOTO LIGHTBOX (filled in by js/main.js)
+       =================================================================== -->
+  <dialog class="lightbox theme-dark" id="lightbox" aria-label="Photo viewer">
+    <div class="lb-top">
+      <p class="lb-count" aria-live="polite"></p>
+      <button class="icon-btn" type="button" data-close aria-label="Close photo viewer">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="lb-stage">
+      <div class="media lb-media"><img alt=""></div>
+      <button class="icon-btn lb-prev" type="button" data-prev aria-label="Previous photo">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+      <button class="icon-btn lb-next" type="button" data-next aria-label="Next photo">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+    <p class="lb-caption"></p>
+  </dialog>
+</body>
+</html>

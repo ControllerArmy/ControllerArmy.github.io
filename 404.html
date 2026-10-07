@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page not found — Erik Helmers</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0b0b0a">
+
+  <!-- GitHub Pages serves this file for ANY missing URL (e.g. /some/deep/path),
+       where relative links like css/styles.css would break. So this page is
+       self-contained: styles and favicon are inline. Keep the colors below in
+       sync with :root in css/styles.css. -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0b0a'/%3E%3Cpath fill='%23f5f3ee' d='M9 8h3.5v16H9zM19.5 8H23v16h-3.5z'/%3E%3Cpath fill='%23a8998a' d='M12.5 14.25h7v3.5h-7z'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600&family=Inter:wght@400;500&display=swap">
+
+  <style>
+    :root {
+      --color-ink: #0b0b0a;
+      --color-paper: #f5f3ee;
+      --color-accent: #a8998a;
+      --color-muted: #a3a19b;
+      --font-display: "Inter Tight", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      --gutter: clamp(1rem, 0.4rem + 2.6vw, 3rem);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      min-height: 100svh;
+      margin: 0;
+      padding: var(--gutter);
+      background: var(--color-ink);
+      color: var(--color-paper);
+      font-family: var(--font-body);
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    main { width: min(100%, 60rem); }
+
+    .eyebrow {
+      margin: 0 0 1rem;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--color-accent);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(3.25rem, 1.5rem + 7.5vw, 9rem);
+      font-weight: 600;
+      letter-spacing: -0.045em;
+      line-height: 0.95;
+    }
+
+    p.lead {
+      max-width: 34rem;
+      margin: 2rem 0 2.5rem;
+      font-size: clamp(1.1875rem, 1rem + 0.8vw, 1.5rem);
+      line-height: 1.45;
+      color: var(--color-muted);
+    }
+
+    a.btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      min-height: 3.5rem;
+      padding: 1rem 2rem;
+      border-radius: 999px;
+      background: var(--color-accent);
+      color: var(--color-ink);
+      font-weight: 500;
+      text-decoration: none;
+      transition: background-color 0.25s ease;
+    }
+
+    a.btn:hover { background: color-mix(in srgb, var(--color-accent) 78%, var(--color-paper)); }
+
+    a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+
+    main > * { animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) both; }
+    main > :nth-child(2) { animation-delay: 0.1s; }
+    main > :nth-child(3) { animation-delay: 0.2s; }
+    main > :nth-child(4) { animation-delay: 0.3s; }
+
+    @keyframes rise { from { opacity: 0; transform: translateY(1.5rem); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      main > * { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">404</p>
+    <h1>Wrong turn.</h1>
+    <p class="lead">This page doesn't exist. It may have moved, or the link might have a typo.</p>
+    <!-- "/" is the site root on GitHub Pages. (Opened straight from your
+         hard drive, it points at the drive root instead. That's expected.) -->
+    <a class="btn" href="/">Back to the homepage <span aria-hidden="true">→</span></a>
+  </main>
+</body>
+</html>
