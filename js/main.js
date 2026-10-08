@@ -25,6 +25,9 @@
      coverAlt  Describes the cover image for screen readers.
      coverFocus  Optional. Which part of the cover stays in frame if it gets
                cropped, as "x% y%" (see "focus" under GALLERY below).
+     coverFit  Optional. "contain" shows the whole cover uncropped, with a
+               blurred copy of it filling the sides. Handy for art that
+               isn't 16:9, like a logo or key art.
      shots     Any number of extra screenshots, 1600 × 900 each.
 
    Put the images in assets/projects/<slug>/.
@@ -69,6 +72,7 @@ const PROJECTS = [
     ],
     link: { label: "Play on itch.io", url: "https://digipen-academy-wanic.itch.io/grog-and-gold" },
     cover: "assets/projects/grog-n-gold/cover.jpg",
+    coverFit: "contain",
     coverAlt: "Grog N' Gold gameplay", // EDIT: describe your image
     shots: [
       "assets/projects/grog-n-gold/shot-1.jpg",
@@ -190,7 +194,8 @@ function syncScrollLock() {
 // `fallback`: a second file to try if `src` is missing (e.g. full photo when
 // its thumbnail hasn't been generated yet).
 // `focus` / `zoom`: framing for cropped images (see GALLERY notes above).
-function mediaHTML(src, alt, size, className = "", { eager = false, fallback = "", focus = "", zoom = 0 } = {}) {
+// `fit: "contain"`: show the whole image over a blurred copy of itself.
+function mediaHTML(src, alt, size, className = "", { eager = false, fallback = "", focus = "", zoom = 0, fit = "" } = {}) {
   const label = fallback || src;
   const fallbackAttr = fallback ? ` data-fallback="${escapeHTML(fallback)}"` : "";
   const framing = [
@@ -198,7 +203,11 @@ function mediaHTML(src, alt, size, className = "", { eager = false, fallback = "
     Number(zoom) > 0 ? `--zoom: ${Number(zoom)}` : "",
   ].filter(Boolean).join("; ");
   const styleAttr = framing ? ` style="${escapeHTML(framing)}"` : "";
-  return `<div class="media ${className}" data-label="${escapeHTML(label)}&#10;${escapeHTML(size)}"><img src="${escapeHTML(src)}"${fallbackAttr}${styleAttr} alt="${escapeHTML(alt)}"${eager ? "" : ' loading="lazy"'} decoding="async"></div>`;
+  const contain = fit === "contain";
+  const backdrop = contain
+    ? `<div class="media-backdrop" style="background-image: url(${escapeHTML(JSON.stringify(src))})" aria-hidden="true"></div>`
+    : "";
+  return `<div class="media ${contain ? "media--contain " : ""}${className}" data-label="${escapeHTML(label)}&#10;${escapeHTML(size)}">${backdrop}<img src="${escapeHTML(src)}"${fallbackAttr}${styleAttr} alt="${escapeHTML(alt)}"${eager ? "" : ' loading="lazy"'} decoding="async"></div>`;
 }
 
 function initImagePlaceholders() {
@@ -242,7 +251,7 @@ function renderProjects() {
   list.innerHTML = PROJECTS.map((project) => `
     <li class="project-card" data-reveal>
       <a class="project-link" href="#project/${escapeHTML(project.slug)}">
-        ${mediaHTML(project.cover, "", "1600 × 900", "", { focus: project.coverFocus })}
+        ${mediaHTML(project.cover, "", "1600 × 900", "", { focus: project.coverFocus, fit: project.coverFit })}
         <div class="project-body">
           <h3 class="project-title">${escapeHTML(project.title)}</h3>
           ${projectMeta(project) ? `<p class="project-meta">${projectMeta(project)}</p>` : ""}
@@ -272,7 +281,7 @@ function projectDetailHTML(project) {
         </a>` : ""}
     </header>
 
-    ${mediaHTML(project.cover, project.coverAlt, "1600 × 900", "pd-cover", { eager: true, focus: project.coverFocus })}
+    ${mediaHTML(project.cover, project.coverAlt, "1600 × 900", "pd-cover", { eager: true, focus: project.coverFocus, fit: project.coverFit })}
 
     <section class="pd-columns" aria-labelledby="pd-built">
       <h3 class="pd-subtitle" id="pd-built">What I built</h3>
