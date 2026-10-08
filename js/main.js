@@ -120,7 +120,7 @@ const PROJECTS = [
     // installer is named exactly TheHelmInstaller.exe.
     link: { label: "Download installer", url: "https://github.com/ControllerArmy/TheHelm/releases/latest/download/TheHelmInstaller.exe", download: true },
     cover: "assets/projects/helm-launcher/cover.jpg",
-    coverAlt: "The Helm Launcher interface",
+    coverAlt: "The Helm logo beside the launcher's Home screen, with a featured game and a row of recently played games",
     shots: [],
   },
 ];
