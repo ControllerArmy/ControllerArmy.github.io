@@ -21,6 +21,9 @@
      summary   Short version shown on the card.
      bullets   Full bullets in the detail view. Use [] to show the summary.
      link      The big button in the detail view, or null to hide it.
+               Add download: true to make it download a file instead of
+               opening a page. Host big files (like installers) on a GitHub
+               release, not in this repo.
      cover     Card + detail image, 1600 × 900.
      coverAlt  Describes the cover image for screen readers.
      coverFocus  Optional. Which part of the cover stays in frame if it gets
@@ -113,7 +116,9 @@ const PROJECTS = [
     stack: ["Electron"],
     summary: "A multi-platform game launcher built with Electron.",
     bullets: [],
-    link: null, // e.g. { label: "View on GitHub", url: "https://github.com/ControllerArmy/REPO-NAME" }
+    // Always the newest GitHub release of TheHelm, as long as each release's
+    // installer is named exactly TheHelmInstaller.exe.
+    link: { label: "Download installer", url: "https://github.com/ControllerArmy/TheHelm/releases/latest/download/TheHelmInstaller.exe", download: true },
     cover: "assets/projects/helm-launcher/cover.jpg",
     coverAlt: "The Helm Launcher interface",
     shots: [],
@@ -178,6 +183,7 @@ const svgIcon = (path, className = "icon") =>
 const ICONS = {
   arrowRight: svgIcon("M5 12h14M13 6l6 6-6 6"),
   external: svgIcon("M7 17 17 7M8 7h9v9"),
+  download: svgIcon("M12 4v11M7 10l5 5 5-5M5 20h14"),
 };
 
 function syncScrollLock() {
@@ -275,10 +281,13 @@ function projectDetailHTML(project) {
       <h2 class="display" id="pd-title" tabindex="-1">${escapeHTML(project.title)}</h2>
       ${facts.length ? `<dl class="pd-facts">${facts.map(([label, value]) => `<div><dt>${label}</dt><dd>${escapeHTML(value)}</dd></div>`).join("")}</dl>` : ""}
       ${tagsHTML(project.stack)}
-      ${project.link?.url ? `
+      ${project.link?.url ? (project.link.download ? `
+        <a class="btn btn--accent btn--lg pd-cta" href="${escapeHTML(project.link.url)}" download>
+          ${escapeHTML(project.link.label)} ${ICONS.download}
+        </a>` : `
         <a class="btn btn--accent btn--lg pd-cta" href="${escapeHTML(project.link.url)}" target="_blank" rel="noopener">
           ${escapeHTML(project.link.label)} ${ICONS.external}<span class="visually-hidden"> (opens in a new tab)</span>
-        </a>` : ""}
+        </a>`) : ""}
     </header>
 
     ${mediaHTML(project.cover, project.coverAlt, "1600 × 900", "pd-cover", { eager: true, focus: project.coverFocus, fit: project.coverFit })}
