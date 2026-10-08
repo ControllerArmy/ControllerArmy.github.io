@@ -25,6 +25,7 @@ Drop a file in with that name and refresh.
 | File | Size (px) | Keep under |
 | --- | --- | --- |
 | `assets/images/hero.jpg` | 2400 × 1350 | 450 KB |
+| `assets/images/portrait.jpg` (photo of you, About section) | 1200 × 1500 | 250 KB |
 | `assets/projects/<slug>/cover.jpg` | 1600 × 900 | 250 KB |
 | `assets/projects/<slug>/shot-1.jpg`, `shot-2.jpg`, ... | 1600 × 900 | 250 KB each |
 | Gallery photos | made for you by `tools/resize-photos.ps1` (see "Add a photo") | |

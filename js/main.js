@@ -21,9 +21,11 @@
      summary   Short version shown on the card.
      bullets   Full bullets in the detail view. Use [] to show the summary.
      link      The big button in the detail view, or null to hide it.
-               Add download: true to make it download a file instead of
-               opening a page. Host big files (like installers) on a GitHub
-               release, not in this repo.
+               For an app, use downloads: { windows, mac, linux } instead
+               of label + url. The button offers the installer for the
+               visitor's system and lists the others under it. Leave a
+               system as "" if it has no installer. Host big files (like
+               installers) on a GitHub release, not in this repo.
      cover     Card + detail image, 1600 × 900.
      coverAlt  Describes the cover image for screen readers.
      coverFocus  Optional. Which part of the cover stays in frame if it gets
@@ -113,12 +115,18 @@ const PROJECTS = [
     role: "",
     dates: "",
     where: "",
-    stack: ["Electron"],
+    stack: ["Electron", "C++"],
     summary: "A multi-platform game launcher built with Electron.",
     bullets: [],
-    // Always the newest GitHub release of TheHelm, as long as each release's
-    // installer is named exactly TheHelmInstaller.exe.
-    link: { label: "Download installer", url: "https://github.com/ControllerArmy/TheHelm/releases/latest/download/TheHelmInstaller.exe", download: true },
+    // Always the newest GitHub release of TheHelm, so every release must have
+    // all three files attached under exactly these names.
+    link: {
+      downloads: {
+        windows: "https://github.com/ControllerArmy/TheHelm/releases/latest/download/TheHelmInstaller.exe",
+        mac: "https://github.com/ControllerArmy/TheHelm/releases/latest/download/TheHelmInstaller.dmg",
+        linux: "https://github.com/ControllerArmy/TheHelm/releases/latest/download/TheHelm-x86_64.AppImage",
+      },
+    },
     cover: "assets/projects/helm-launcher/cover.jpg",
     coverAlt: "The Helm logo beside the launcher's Home screen, with a featured game and a row of recently played games",
     shots: [],
@@ -269,6 +277,64 @@ function renderProjects() {
     </li>`).join("");
 }
 
+const PLATFORMS = { windows: "Windows", mac: "macOS", linux: "Linux" };
+
+// What a first-time user has to do after downloading, shown under the button
+// for their system. The Mac app isn't signed with an Apple Developer ID, and
+// browsers never mark a Linux download as runnable.
+const FIRST_RUN = {
+  mac: "First launch: if macOS says it can't verify The Helm, open System Settings › Privacy & Security and click Open Anyway.",
+  linux: "Before the first launch, allow the file to run as a program (right-click › Properties, or chmod +x), then double-click it.",
+};
+
+// Best guess at the visitor's computer: "windows", "mac", "linux", or "" for
+// phones, tablets, Chromebooks and anything unrecognized.
+function detectPlatform() {
+  const ua = navigator.userAgent;
+  const platform = navigator.userAgentData?.platform || navigator.platform || "";
+  if (navigator.userAgentData?.mobile || /Android|iPhone|iPad|iPod|\bCrOS\b/.test(ua)) return "";
+  // iPads ask for the desktop site by claiming to be Macs; no Mac has a touch screen.
+  if (/mac/i.test(platform)) return navigator.maxTouchPoints > 1 ? "" : "mac";
+  if (/win/i.test(platform)) return "windows";
+  if (/linux/i.test(platform)) return "linux";
+  return "";
+}
+
+// The installer for the visitor's system as the big button, with the other
+// systems linked underneath. Falls back to the first system that has one.
+function downloadCtaHTML(downloads) {
+  const available = Object.keys(PLATFORMS).filter((os) => downloads[os]);
+  if (!available.length) return "";
+  const visitor = detectPlatform();
+  const primary = available.includes(visitor) ? visitor : available[0];
+  const others = available.filter((os) => os !== primary);
+
+  const notes = [
+    visitor && visitor !== primary ? `Not available for ${PLATFORMS[visitor]} yet.` : "",
+    others.length
+      ? `Other systems: ${others.map((os) => `<a href="${escapeHTML(downloads[os])}" download>${PLATFORMS[os]}</a>`).join(", ")}`
+      : "",
+  ].filter(Boolean);
+
+  return `
+    <div class="pd-cta pd-download">
+      <a class="btn btn--accent btn--lg" href="${escapeHTML(downloads[primary])}" download>
+        Download for ${PLATFORMS[primary]} ${ICONS.download}
+      </a>
+      ${FIRST_RUN[primary] ? `<p class="pd-download-note">${FIRST_RUN[primary]}</p>` : ""}
+      ${notes.length ? `<p class="pd-download-note">${notes.join(" ")}</p>` : ""}
+    </div>`;
+}
+
+function projectCtaHTML(link) {
+  if (link?.downloads) return downloadCtaHTML(link.downloads);
+  if (!link?.url) return "";
+  return `
+    <a class="btn btn--accent btn--lg pd-cta" href="${escapeHTML(link.url)}" target="_blank" rel="noopener">
+      ${escapeHTML(link.label)} ${ICONS.external}<span class="visually-hidden"> (opens in a new tab)</span>
+    </a>`;
+}
+
 function projectDetailHTML(project) {
   const index = PROJECTS.indexOf(project);
   const next = PROJECTS[(index + 1) % PROJECTS.length];
@@ -281,13 +347,7 @@ function projectDetailHTML(project) {
       <h2 class="display" id="pd-title" tabindex="-1">${escapeHTML(project.title)}</h2>
       ${facts.length ? `<dl class="pd-facts">${facts.map(([label, value]) => `<div><dt>${label}</dt><dd>${escapeHTML(value)}</dd></div>`).join("")}</dl>` : ""}
       ${tagsHTML(project.stack)}
-      ${project.link?.url ? (project.link.download ? `
-        <a class="btn btn--accent btn--lg pd-cta" href="${escapeHTML(project.link.url)}" download>
-          ${escapeHTML(project.link.label)} ${ICONS.download}
-        </a>` : `
-        <a class="btn btn--accent btn--lg pd-cta" href="${escapeHTML(project.link.url)}" target="_blank" rel="noopener">
-          ${escapeHTML(project.link.label)} ${ICONS.external}<span class="visually-hidden"> (opens in a new tab)</span>
-        </a>`) : ""}
+      ${projectCtaHTML(project.link)}
     </header>
 
     ${mediaHTML(project.cover, project.coverAlt, "1600 × 900", "pd-cover", { eager: true, focus: project.coverFocus, fit: project.coverFit })}

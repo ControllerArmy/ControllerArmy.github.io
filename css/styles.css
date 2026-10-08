@@ -733,14 +733,37 @@ button {
   color: var(--muted);
 }
 
+.about-photo {
+  aspect-ratio: 4 / 5;
+  max-width: 26rem;
+}
+
 @media (min-width: 60rem) {
   .about-grid {
     grid-template-columns: 7fr 5fr;
+    grid-template-rows: auto auto 1fr;
     column-gap: clamp(3rem, 6vw, 8rem);
   }
 
   .about-head {
     grid-column: 1 / -1;
+  }
+
+  .about-copy,
+  .facts {
+    grid-column: 1;
+  }
+
+  /* Photo fills the right column beside the paragraph and facts. The last
+     row stretches to fit it, so the facts stay right under the paragraph. */
+  .about-photo {
+    grid-column: 2;
+    grid-row: 2 / span 2;
+    max-width: none;
+  }
+
+  .facts {
+    align-self: start;
   }
 }
 
@@ -1175,6 +1198,17 @@ dialog::backdrop {
 
 .pd-cta {
   margin-top: 0.5rem;
+}
+
+.pd-download {
+  display: grid;
+  justify-items: start;
+  gap: 0.75rem;
+}
+
+.pd-download-note {
+  font-size: var(--text-small);
+  color: var(--muted);
 }
 
 .pd-cover {
