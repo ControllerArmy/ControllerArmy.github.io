@@ -101,7 +101,8 @@ const PROJECTS = [
     ],
     link: { label: "Play on itch.io", url: "https://digipen-academy-wanic.itch.io/2025scallyandwag" },
     cover: "assets/projects/scally-and-wag/cover.jpg",
-    coverAlt: "Scally & Wag gameplay", // EDIT: describe your image
+    coverFit: "contain",
+    coverAlt: "Scally & Wag: One Last Adventure title art on a parchment scroll, in a gold frame over an underwater scene",
     shots: [
       "assets/projects/scally-and-wag/shot-1.jpg",
       "assets/projects/scally-and-wag/shot-2.jpg",
