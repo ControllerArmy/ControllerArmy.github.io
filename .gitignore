@@ -12,3 +12,7 @@ $RECYCLE.BIN/
 
 # Local Claude Code settings (personal, not part of the site)
 .claude/settings.local.json
+
+# Full-size photos. Stay on this computer; tools/resize-photos.ps1 makes the
+# web-sized copies in assets/gallery/ that actually get published.
+originals/

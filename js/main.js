@@ -23,6 +23,8 @@
      link      The big button in the detail view, or null to hide it.
      cover     Card + detail image, 1600 × 900.
      coverAlt  Describes the cover image for screen readers.
+     coverFocus  Optional. Which part of the cover stays in frame if it gets
+               cropped, as "x% y%" (see "focus" under GALLERY below).
      shots     Any number of extra screenshots, 1600 × 900 each.
 
    Put the images in assets/projects/<slug>/.
@@ -118,17 +120,30 @@ const PROJECTS = [
 /* ==========================================================================
    GALLERY  (EDIT ME)
    --------------------------------------------------------------------------
-   One line per photo. Put the files in assets/gallery/.
+   One line per photo. Don't upload camera files directly: put them in
+   originals/ and run tools/resize-photos.ps1, which makes a 2400px copy in
+   assets/gallery/ (full-screen viewer) and a 1600px copy in
+   assets/gallery/thumbs/ (grid). It prints the src to use here.
      alt      Describes the photo for screen readers (required).
      caption  Shown under the photo in the lightbox. "" for none.
      shape    "wide" = spans 2 columns, "tall" = spans 2 rows, "" = normal.
-              Landscape photos: 2000 × 1333. Portrait ("tall"): 1333 × 2000.
+
+   Framing (optional). The grid crops photos to fit their box; the
+   full-screen viewer always shows the whole photo.
+     focus    The point to keep in frame, as "x% y%" from the top-left.
+              "50% 50%" = center (default), "85% 50%" = right side,
+              "50% 20%" = near the top. Words work too: "left", "bottom".
+     zoom     Crop in tighter around the focus point. 1 = none, 1.3 = 30%.
+              Values below 1 can't zoom out; use a different shape instead
+              (a landscape photo in a "tall" box loses about half its width).
+   Example:  { src: "...", alt: "...", caption: "", shape: "tall", focus: "85% 50%", zoom: 1.2 },
+
    The current mix of shapes fills the grid evenly. If you add or remove
    photos and see a gap, try changing a shape.
    ========================================================================== */
 const GALLERY = [
   { src: "assets/gallery/photo-01.jpg", alt: "Car photo 1", caption: "", shape: "wide" },
-  { src: "assets/gallery/photo-02.jpg", alt: "Car photo 2", caption: "", shape: "tall" },
+  { src: "assets/gallery/photo-02.jpg", alt: "Car photo 2", caption: "", shape: "tall", focus: "85% 50%" },
   { src: "assets/gallery/photo-03.jpg", alt: "Car photo 3", caption: "", shape: "" },
   { src: "assets/gallery/photo-04.jpg", alt: "Car photo 4", caption: "", shape: "" },
   { src: "assets/gallery/photo-05.jpg", alt: "Car photo 5", caption: "", shape: "" },
@@ -172,15 +187,33 @@ function syncScrollLock() {
    Images that fail to load (because you haven't added them yet) turn into a
    striped box showing the exact path and size the site expects. */
 
-function mediaHTML(src, alt, size, className = "", { eager = false } = {}) {
-  return `<div class="media ${className}" data-label="${escapeHTML(src)}&#10;${escapeHTML(size)}"><img src="${escapeHTML(src)}" alt="${escapeHTML(alt)}"${eager ? "" : ' loading="lazy"'} decoding="async"></div>`;
+// `fallback`: a second file to try if `src` is missing (e.g. full photo when
+// its thumbnail hasn't been generated yet).
+// `focus` / `zoom`: framing for cropped images (see GALLERY notes above).
+function mediaHTML(src, alt, size, className = "", { eager = false, fallback = "", focus = "", zoom = 0 } = {}) {
+  const label = fallback || src;
+  const fallbackAttr = fallback ? ` data-fallback="${escapeHTML(fallback)}"` : "";
+  const framing = [
+    focus ? `--focus: ${focus}` : "",
+    Number(zoom) > 0 ? `--zoom: ${Number(zoom)}` : "",
+  ].filter(Boolean).join("; ");
+  const styleAttr = framing ? ` style="${escapeHTML(framing)}"` : "";
+  return `<div class="media ${className}" data-label="${escapeHTML(label)}&#10;${escapeHTML(size)}"><img src="${escapeHTML(src)}"${fallbackAttr}${styleAttr} alt="${escapeHTML(alt)}"${eager ? "" : ' loading="lazy"'} decoding="async"></div>`;
 }
 
 function initImagePlaceholders() {
   const setMissing = (img, missing) => img.closest(".media")?.classList.toggle("is-missing", missing);
 
+  const handleBroken = (img) => {
+    if (img.dataset.fallback && img.getAttribute("src") !== img.dataset.fallback) {
+      img.src = img.dataset.fallback;
+    } else {
+      setMissing(img, true);
+    }
+  };
+
   document.addEventListener("error", (event) => {
-    if (event.target instanceof HTMLImageElement) setMissing(event.target, true);
+    if (event.target instanceof HTMLImageElement) handleBroken(event.target);
   }, true);
 
   document.addEventListener("load", (event) => {
@@ -189,7 +222,7 @@ function initImagePlaceholders() {
 
   // Catch images that already failed before this script ran.
   $$(".media img").forEach((img) => {
-    if (img.complete && img.naturalWidth === 0) setMissing(img, true);
+    if (img.complete && img.naturalWidth === 0) handleBroken(img);
   });
 }
 
@@ -209,7 +242,7 @@ function renderProjects() {
   list.innerHTML = PROJECTS.map((project) => `
     <li class="project-card" data-reveal>
       <a class="project-link" href="#project/${escapeHTML(project.slug)}">
-        ${mediaHTML(project.cover, "", "1600 × 900")}
+        ${mediaHTML(project.cover, "", "1600 × 900", "", { focus: project.coverFocus })}
         <div class="project-body">
           <h3 class="project-title">${escapeHTML(project.title)}</h3>
           ${projectMeta(project) ? `<p class="project-meta">${projectMeta(project)}</p>` : ""}
@@ -239,7 +272,7 @@ function projectDetailHTML(project) {
         </a>` : ""}
     </header>
 
-    ${mediaHTML(project.cover, project.coverAlt, "1600 × 900", "pd-cover", { eager: true })}
+    ${mediaHTML(project.cover, project.coverAlt, "1600 × 900", "pd-cover", { eager: true, focus: project.coverFocus })}
 
     <section class="pd-columns" aria-labelledby="pd-built">
       <h3 class="pd-subtitle" id="pd-built">What I built</h3>
@@ -334,7 +367,10 @@ function initProjectDialog() {
 /* ---------- Photography + lightbox ---------------------------------------- */
 
 const photoSize = (photo) =>
-  photo.shape === "tall" ? "1333 × 2000 (portrait)" : "2000 × 1333 (landscape)";
+  photo.shape === "tall" ? "1600 × 2400 (portrait)" : "2400 × 1600 (landscape)";
+
+// assets/gallery/photo-01.jpg -> assets/gallery/thumbs/photo-01.jpg
+const thumbFor = (src) => src.replace(/([^/]+)$/, "thumbs/$1");
 
 function renderGallery() {
   const list = $("[data-gallery]");
@@ -343,7 +379,7 @@ function renderGallery() {
   list.innerHTML = GALLERY.map((photo, i) => `
     <li class="gallery-item${photo.shape ? ` gallery-item--${escapeHTML(photo.shape)}` : ""}" data-reveal>
       <button class="gallery-btn" type="button" data-index="${i}" aria-label="View larger: ${escapeHTML(photo.alt)}">
-        ${mediaHTML(photo.src, "", photoSize(photo))}
+        ${mediaHTML(thumbFor(photo.src), "", photoSize(photo), "", { fallback: photo.src, focus: photo.focus, zoom: photo.zoom })}
       </button>
     </li>`).join("");
 }
