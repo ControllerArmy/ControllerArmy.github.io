@@ -77,8 +77,7 @@ const PROJECTS = [
     ],
     link: { label: "Play on itch.io", url: "https://digipen-academy-wanic.itch.io/grog-and-gold" },
     cover: "assets/projects/grog-n-gold/cover.jpg",
-    coverFit: "contain",
-    coverAlt: "Grog N' Gold gameplay", // EDIT: describe your image
+    coverAlt: "Grog N' Gold title beside the game's key art: a pirate ship, an octopus, and a narwhal on a starry night sea",
     shots: [
       "assets/projects/grog-n-gold/shot-1.jpg",
       "assets/projects/grog-n-gold/shot-2.jpg",
@@ -101,8 +100,7 @@ const PROJECTS = [
     ],
     link: { label: "Play on itch.io", url: "https://digipen-academy-wanic.itch.io/2025scallyandwag" },
     cover: "assets/projects/scally-and-wag/cover.jpg",
-    coverFit: "contain",
-    coverAlt: "Scally & Wag: One Last Adventure title art on a parchment scroll, in a gold frame over an underwater scene",
+    coverAlt: "Scally & Wag title beside the game's key art: the logo on a parchment scroll over an underwater scene",
     shots: [
       "assets/projects/scally-and-wag/shot-1.jpg",
       "assets/projects/scally-and-wag/shot-2.jpg",
