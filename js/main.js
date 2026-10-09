@@ -166,7 +166,7 @@ const GALLERY = [
   { src: "assets/gallery/photo-06.jpg", alt: "Car photo 6", caption: "", shape: "wide" },
   { src: "assets/gallery/photo-07.jpg", alt: "Car photo 7", caption: "", shape: "" },
   { src: "assets/gallery/photo-08.jpg", alt: "Car photo 8", caption: "", shape: "" },
-  { src: "assets/gallery/photo-09.jpg", alt: "Car photo 9", caption: "", shape: "" },
+  { src: "assets/gallery/hero.jpg", alt: "Car photo 9", caption: "", shape: "" },
 ];
 
 
