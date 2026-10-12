@@ -55,7 +55,7 @@ const PROJECTS = [
     ],
     link: null, // e.g. { label: "View on GitHub", url: "https://github.com/ControllerArmy/..." }
     cover: "assets/projects/pathfinder/cover.jpg",
-    coverAlt: "The PATHFINDER handheld sensor device", // EDIT: describe your image
+    coverAlt: "PATHFINDER title beside a 3D render of a rugged orange handheld sensor device whose screen shows a compass and temperature, humidity and altitude readings",
     shots: [
       "assets/projects/pathfinder/shot-1.jpg",
       "assets/projects/pathfinder/shot-2.jpg",
@@ -105,6 +105,7 @@ const PROJECTS = [
       "assets/projects/scally-and-wag/shot-1.jpg",
       "assets/projects/scally-and-wag/shot-2.jpg",
       "assets/projects/scally-and-wag/shot-3.jpg",
+      "assets/projects/scally-and-wag/shot-4.jpg",
     ],
   },
   {

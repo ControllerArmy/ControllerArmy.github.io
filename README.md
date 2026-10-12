@@ -29,7 +29,7 @@ Drop a file in with that name and refresh.
 | `assets/projects/<slug>/cover.jpg` | 1600 × 900 | 250 KB |
 | `assets/projects/<slug>/shot-1.jpg`, `shot-2.jpg`, ... | 1600 × 900 | 250 KB each |
 | Gallery photos | made for you by `tools/resize-photos.ps1` (see "Add a photo") | |
-| `assets/og-image.jpg` (link preview, already made) | 1200 × 630 | 300 KB |
+| `assets/og-portrait.jpg` (link preview thumbnail, square crop of your portrait) | 1200 × 1200 | 300 KB |
 
 Project slugs: `pathfinder`, `grog-n-gold`, `scally-and-wag`, `helm-launcher`.
 
