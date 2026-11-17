@@ -62,6 +62,25 @@ const PROJECTS = [
     ],
   },
   {
+    slug: "here-there-be-monsters",
+    title: "Here There Be Monsters",
+    role: "Lead Programmer & Game Director",
+    dates: "October 2026",
+    where: "Synty Spooky Jam",
+    stack: ["Unreal Engine", "C++", "Blueprints"],
+    summary:
+        "A wave survival game with rounds and difficulty progression.",
+    bullets: [
+        "Coded all gameplay scripts as well as gameplay functionality",
+        "Set up Steam multiplayer system to play with up to 2 other people",
+        "Created Toon Outline Shader Material for Post Process volumes",
+    ],
+    link: { label: "Play on itch.io", url: "https://tedhelmersgmailcom.itch.io/here-there-be-monsters" },
+    cover: "assets/projects/here-there-be-monsters/cover.jpg",
+    coverAlt: "Here There Be Monsters title",
+    shots: [],
+  },
+  {
     slug: "grog-n-gold",
     title: "Grog N' Gold",
     role: "Lead Programmer",
